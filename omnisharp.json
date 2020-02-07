@@ -4,6 +4,14 @@
     "IndentationSize": 4,
     "NewLinesForBracesInTypes": false,
     "NewLinesForBracesInMethods": false,
-    "NewLinesForBracesInLambdaExpressionBody": false
+    "NewLinesForBracesInLambdaExpressionBody": false,
+    "NewLinesForBracesInProperties": false,
+    "NewLinesForBracesInAccessors": false,
+    "NewLinesForBracesInControlBlocks": false,
+    "NewLineForElse": false,
+    "NewLineForFinally": false,
+    "NewLineForCatch": false,
+    "NewLineForMembersInObjectInit": false,
+    "NewLinesForBracesInObjectCollectionArrayInitializers": false
   }
 }

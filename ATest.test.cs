@@ -2,31 +2,25 @@
 
 namespace ginkgo_cs {
     public class ATest : Ginkgo {
-        ATest() {
-            BeforeAll(() => {
-                System.Console.WriteLine("BeforeAll");
-            });
-
-            AfterAll(() => {
-                System.Console.WriteLine("AfterAll");
-            });
-
+        public ATest() {
             Describe("describe", () => {
-                System.Console.WriteLine("describe");
+                Console.WriteLine("describe");
 
-                JustBeforeEach(() => {
-                    System.Console.WriteLine("JustBeforeEach");
-                });
+                BeforeAll(() => Console.WriteLine("BeforeAll"));
+                AfterAll(() => Console.WriteLine("AfterAll"));
 
-                When("when", () => {
-                    System.Console.WriteLine("when");
+                BeforeEach(() => Console.WriteLine("BeforeEach"));
 
-                    BeforeEach(() => {
-                        System.Console.WriteLine("BeforeEach");
-                    });
+                When("a thing does another thing", () => {
+                    Console.WriteLine("when");
 
-                    Then("then", () => {
-                        System.Console.WriteLine("Then");
+                    JustBeforeEach(() => Console.WriteLine("JustBeforeEach"));
+
+                    Then("another thing happens", () => {
+                        //normally we'd assert here, but I don't know how that works
+                        // yet, so we're just going to write something to the console
+                        // so we know this func got called.
+                        Console.WriteLine("then");
                     });
                 });
             });
