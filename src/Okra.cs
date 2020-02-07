@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ginkgo_cs {
+namespace okra {
     public enum ContainerTypes {
         Description,
         Context
@@ -36,12 +36,12 @@ namespace ginkgo_cs {
         public Action TestFunc { get; set; }
     }
 
-    public class Ginkgo {
+    public class Okra {
         private readonly IList<Container> _containers;
 
         private readonly Queue<Container> _contextStack;
 
-        public Ginkgo() {
+        public Okra() {
             _containers = new List<Container>();
             _contextStack = new Queue<Container>();
         }

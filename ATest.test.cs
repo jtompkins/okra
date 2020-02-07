@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace ginkgo_cs {
-    public class ATest : Ginkgo {
+namespace okra {
+    public class ATest : Okra {
         public ATest() {
             Describe("describe", () => {
                 Console.WriteLine("describe");

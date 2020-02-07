@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>ginkgo_cs</RootNamespace>
+    <RootNamespace>okra</RootNamespace>
   </PropertyGroup>
 
 </Project>
