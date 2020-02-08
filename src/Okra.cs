@@ -8,7 +8,7 @@ namespace okra {
 
         public Okra() {
             _containers = new List<Container>();
-            _contextStack = new Queue<Container>();
+            _contextStack = new Stack<Container>();
         }
 
         private Container Current {
