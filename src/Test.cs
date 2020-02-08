@@ -1,7 +1,7 @@
 using System;
 
 namespace okra {
-    public class Test {
+    public class Test : ITestNode {
         public string Description { get; set; }
         public Action TestFunc { get; set; }
 

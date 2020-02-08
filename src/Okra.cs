@@ -21,6 +21,12 @@ namespace okra {
             }
         }
 
+        public IEnumerable<Container> Containers {
+            get {
+                return _containers;
+            }
+        }
+
         #region Builders
 
         public void Describe(string description, Action func) {

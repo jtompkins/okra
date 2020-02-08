@@ -2,14 +2,30 @@ using System;
 using System.Collections.Generic;
 
 namespace okra {
+    public interface ITestNode {
+        void Accept(IVisitor visitor);
+    }
+
     public enum ContainerTypes {
         Description,
         Context
     }
 
-    public class Container {
+    public class Container : ITestNode {
         private readonly List<Container> _containers;
         private readonly List<Test> _tests;
+
+        public IEnumerable<Container> Containers {
+            get {
+                return _containers;
+            }
+        }
+
+        public IEnumerable<Test> Tests {
+            get {
+                return _tests;
+            }
+        }
 
         public Container(string description, ContainerTypes type) {
             _containers = new List<Container>();
