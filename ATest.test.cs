@@ -3,7 +3,7 @@
 namespace okra {
     public class ATest : Okra {
         public ATest() {
-            Describe("describe", () => {
+            Describe("a thing", () => {
                 Console.WriteLine("describe");
 
                 BeforeAll(() => Console.WriteLine("BeforeAll"));
