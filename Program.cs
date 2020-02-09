@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace okra {
-    class Program {
-        static void Main(string[] args) {
-            var visitor = new TestVisitor(new ATest());
+    public class Program {
+        public static void Main(string[] args) {
+            var runner = new TestRunner(new List<Okra>() { new ATest() });
 
-            visitor.Discover();
+            runner.Run();
         }
     }
 }

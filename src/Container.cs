@@ -48,9 +48,5 @@ namespace okra {
         public void AddTest(Test test) {
             _tests.Add(test);
         }
-
-        public void Accept(IVisitor visitor) {
-            visitor.VisitContainer(this);
-        }
     }
 }

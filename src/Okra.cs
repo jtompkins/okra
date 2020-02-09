@@ -54,10 +54,21 @@ namespace okra {
         }
 
         public void Then(string when, Action func) {
-            var test = new Test() {
-                Description = when,
-                TestFunc = func
-            };
+            var test = new Test(when, func);
+
+            foreach (var container in _contextStack) {
+                if (container.BeforeEach != null) {
+                    test.Before.Enqueue(container.BeforeEach);
+                }
+
+                if (container.AfterEach != null) {
+                    test.After.Enqueue(container.AfterEach);
+                }
+
+                if (container.JustBeforeEach != null) {
+                    test.JustBefore.Enqueue(container.JustBeforeEach);
+                }
+            }
 
             Current.AddTest(test);
         }
