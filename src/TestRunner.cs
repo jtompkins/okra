@@ -1,11 +1,14 @@
+using System;
 using System.Collections.Generic;
 
 namespace okra {
     public class TestRunner {
         private readonly IEnumerable<Okra> _tests;
+        private readonly ITestFormatter _formatter;
 
-        public TestRunner(IEnumerable<Okra> tests) {
+        public TestRunner(IEnumerable<Okra> tests, ITestFormatter formatter) {
             _tests = tests;
+            _formatter = formatter;
         }
 
         public void Run() {
@@ -13,17 +16,23 @@ namespace okra {
             // test metadata; for this first version, we'll just
             // log to the console when we "discover" each node in
             // the test tree.
+            _formatter?.TestingStarted();
+
             foreach (var test in _tests) {
                 foreach (var container in test.Containers) {
                     DiscoverTests(container);
                 }
             }
+
+            _formatter?.TestingComplete();
         }
 
         public void DiscoverTests(Container container) {
             if (container == null) {
                 return;
             }
+
+            _formatter?.StartContainer(container);
 
             container.BeforeAll?.Invoke();
 
@@ -36,6 +45,8 @@ namespace okra {
             }
 
             container.AfterAll?.Invoke();
+
+            _formatter?.FinishContainer(container);
         }
 
         public void EvaluateTest(Test test) {
@@ -47,10 +58,15 @@ namespace okra {
                 justBefore();
             }
 
-            test.Func();
-
-            foreach (var after in test.After) {
-                after();
+            try {
+                test.Func();
+                _formatter?.TestSuccessful(test);
+            } catch (Exception ex) {
+                _formatter?.TestFailed(test, ex.Message);
+            } finally {
+                foreach (var after in test.After) {
+                    after();
+                }
             }
         }
     }
