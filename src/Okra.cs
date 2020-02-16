@@ -30,7 +30,7 @@ namespace okra {
         #region Builders
 
         public void Describe(string description, Action func) {
-            var container = new Container(description, ContainerTypes.Context);
+            var container = new Container(description, ContainerTypes.Description);
 
             _containers.Add(container);
 
@@ -71,6 +71,10 @@ namespace okra {
             }
 
             Current.AddTest(test);
+        }
+
+        public void It(string it, Action func) {
+            Then(it, func);
         }
 
         #endregion

@@ -35,7 +35,7 @@ namespace okra {
             WriteIndent();
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("✓\t");
+            Console.Write("✓ ");
 
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine(test.Description);
@@ -47,7 +47,7 @@ namespace okra {
             WriteIndent();
 
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("✘\t");
+            Console.Write("✘ ");
 
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine($"{test.Description}");
