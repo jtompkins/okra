@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Shouldly;
@@ -36,6 +37,29 @@ namespace okra.Tests {
                 Describe("TestWithNestedContexts", () => {
                     When("parent context", () => {
                         When("child context", () => { });
+                    });
+                });
+            }
+        }
+
+        private class TestWithModifiersAndTests : Okra {
+            public static Action SampleJustBeforeEach = () => { };
+            public static Action SampleOuterBeforeEach = () => { };
+            public static Action SampleInnerBeforeEach = () => { };
+            public static Action SampleOuterAfterEach = () => { };
+            public static Action SampleInnerAfterEach = () => { };
+
+            public TestWithModifiersAndTests() {
+                Describe("a test with modifiers and tests", () => {
+                    BeforeEach(SampleOuterBeforeEach);
+                    AfterEach(SampleOuterAfterEach);
+
+                    Context("a context", () => {
+                        BeforeEach(SampleInnerBeforeEach);
+                        JustBeforeEach(SampleJustBeforeEach);
+                        AfterEach(SampleInnerAfterEach);
+
+                        It("does a thing", () => { });
                     });
                 });
             }
@@ -113,6 +137,39 @@ namespace okra.Tests {
 
                         var childContainer = parentContainer.Containers.First();
                         childContainer.Description.ShouldBe("child context");
+                    });
+                });
+
+                When("the test class has contexts with modifiers and tests", () => {
+                    Test subject = null;
+
+                    BeforeEach(() => subject = new TestWithModifiersAndTests().Containers.First().Containers.First().Tests.First());
+
+                    It("orders the before each modifiers correctly", () => {
+                        subject.Description.ShouldBe("does a thing");
+
+                        var first = subject.Before.Dequeue();
+                        first.ShouldBe(TestWithModifiersAndTests.SampleInnerBeforeEach);
+
+                        var second = subject.Before.Dequeue();
+                        second.ShouldBe(TestWithModifiersAndTests.SampleOuterBeforeEach);
+                    });
+
+                    It("orders the after each modifiers correctly", () => {
+                        subject.Description.ShouldBe("does a thing");
+
+                        var first = subject.After.Dequeue();
+                        first.ShouldBe(TestWithModifiersAndTests.SampleInnerAfterEach);
+
+                        var second = subject.After.Dequeue();
+                        second.ShouldBe(TestWithModifiersAndTests.SampleOuterAfterEach);
+                    });
+
+                    It("orders the just before each modifiers correctly", () => {
+                        subject.Description.ShouldBe("does a thing");
+
+                        var first = subject.JustBefore.Dequeue();
+                        first.ShouldBe(TestWithModifiersAndTests.SampleJustBeforeEach);
                     });
                 });
             });
